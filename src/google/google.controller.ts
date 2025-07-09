@@ -100,14 +100,13 @@ export class GoogleController {
       // Transform DTO to Google Calendar event format
       const eventData = {
         summary: createEventDto.summary,
-        description: createEventDto.description,
         start: {
           dateTime: createEventDto.start,
-          timeZone: 'UTC',
+          timeZone: 'America/Sao_Paulo',
         },
         end: {
           dateTime: createEventDto.end,
-          timeZone: 'UTC',
+          timeZone: 'America/Sao_Paulo',
         },
         attendees: createEventDto.attendees,
       };

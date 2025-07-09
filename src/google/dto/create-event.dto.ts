@@ -10,10 +10,6 @@ export class CreateEventDto {
   @IsDateString()
   end: string;
 
-  @IsString()
-  @IsOptional()
-  description?: string;
-
   @IsArray()
   @IsOptional()
   attendees?: { email: string }[];

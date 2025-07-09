@@ -57,7 +57,7 @@ export class GoogleService {
    * Get the Google Calendar API client
    * @returns Google Calendar API client
    */
-  getCalendar() {
+  private getCalendar() {
     if (!this.oauth2Client.credentials) {
       throw new UnauthorizedException('Not authenticated with Google Calendar');
     }
