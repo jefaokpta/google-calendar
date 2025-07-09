@@ -13,6 +13,13 @@ export class GoogleService {
       this.configService.get('GOOGLE_CLIENT_SECRET'),
       this.configService.get('GOOGLE_REDIRECT_URI'),
     );
+    this.oauth2Client.setCredentials({
+      access_token: this.configService.get('GOOGLE_OAUTH_ACCESS_TOKEN'),
+      refresh_token: this.configService.get('GOOGLE_OAUTH_REFRESH_TOKEN'),
+      scope: "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar",
+      token_type: "Bearer",
+      expiry_date: 1752096182165
+    });
   }
 
   /**
