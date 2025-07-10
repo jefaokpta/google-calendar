@@ -65,6 +65,34 @@ export class GoogleService {
   }
 
   /**
+   * Get all calendars available to the user
+   * @returns List of calendars
+   */
+  async getCalendars() {
+    try {
+      const calendar = this.getCalendar();
+
+      const response = await calendar.calendarList.list({
+        maxResults: 250, // Maximum number of calendars to return
+        showHidden: true, // Include hidden calendars
+        showDeleted: false, // Exclude deleted calendars
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching calendars:', error);
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+      if (error.code === 401) {
+        throw new UnauthorizedException('Authentication token expired');
+      }
+      throw new InternalServerErrorException(`Failed to fetch calendars: ${error.message}`);
+    }
+  }
+
+
+  /**
    * Get events for the current week
    * @returns List of events for the current week
    */
@@ -83,12 +111,12 @@ export class GoogleService {
       endOfWeek.setHours(23, 59, 59, 999);
 
       return calendar.events.list({
-        calendarId: 'primary',
+        calendarId: 'c_d5b189a1257ce852dbaad05f3077e5d6802ecd07febf3583e9bb651421b899aa@group.calendar.google.com',
         timeMin: startOfWeek.toISOString(),
         timeMax: endOfWeek.toISOString(),
         singleEvents: true,
         orderBy: 'startTime',
-        maxResults: 10,
+        maxResults: 30,
       });
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -112,7 +140,7 @@ export class GoogleService {
       const calendar = this.getCalendar();
 
       return calendar.events.insert({
-        calendarId: 'primary',
+        calendarId: 'c_d5b189a1257ce852dbaad05f3077e5d6802ecd07febf3583e9bb651421b899aa@group.calendar.google.com',
         requestBody: eventData,
         conferenceDataVersion: 1 //Obrigatorio pra criar links no meet
       });

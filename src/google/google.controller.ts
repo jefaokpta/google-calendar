@@ -90,6 +90,16 @@ export class GoogleController {
     }
   }
 
+  @Get('calendars')
+  async getCalendars() {
+    try {
+      const calendars = await this.googleService.getCalendars();
+      return calendars;
+    } catch (error) {
+      this.logger.error(`Failed to fetch calendars: ${error.message}`, error.stack);
+    }
+  }
+
   /**
    * Create a new event in the user's calendar
    * @param createEventDto Event data to create
