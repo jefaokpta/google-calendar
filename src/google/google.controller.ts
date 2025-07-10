@@ -108,6 +108,13 @@ export class GoogleController {
           dateTime: createEventDto.end,
           timeZone: 'America/Sao_Paulo',
         },
+        conferenceData: {
+          createRequest: {
+            requestId: `meet-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+            ,
+            conferenceSolutionKey: {type: 'hangoutsMeet'}
+          }
+        },
         attendees: createEventDto.attendees,
       };
 

@@ -114,6 +114,7 @@ export class GoogleService {
       return calendar.events.insert({
         calendarId: 'primary',
         requestBody: eventData,
+        conferenceDataVersion: 1 //Obrigatorio pra criar links no meet
       });
     } catch (error) {
       console.error('Error creating event:', error);
